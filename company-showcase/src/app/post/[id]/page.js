@@ -14,7 +14,7 @@ async function getCompany(id) {
 }
 
 export default async function CompanyPage({ params }) {
-    const { id } = { params }; // Extract the dynamic `id` from the URL
+    const { id } =  params ; // Extract the dynamic `id` from the URL
     const company = await getCompany(id);
 
     
