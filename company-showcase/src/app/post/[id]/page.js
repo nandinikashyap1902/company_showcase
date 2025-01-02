@@ -1,12 +1,12 @@
-import { supabase } from '../../../../lib/supabaseClient';
+import { supabase } from "../../../../lib/superbaseClient";
 
 async function getCompany(id) {
-    // Fetch the company with its related directors from Supabase
+    
     const { data: company, error } = await supabase
         .from('company')
-        .select('*, directors(*)') // Include related directors
+        .select('*, directors(*)') 
         .eq('id', id)
-        .single(); // Fetch a single company by ID
+        .single(); 
 
     if (error) {
         console.error('Error fetching company:', error);
@@ -17,7 +17,7 @@ async function getCompany(id) {
 }
 
 export default async function CompanyPage({ params }) {
-    const { id } = await params; // Extract the dynamic `id` from the URL
+    const { id } = await params; 
     const company = await getCompany(id);
 
     return (
