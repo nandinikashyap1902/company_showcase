@@ -1,8 +1,15 @@
-import prisma from '../../prisma/prisma';
+import { supabase } from '../../lib/superbaseClient';
 import Link from 'next/link';
+
 async function getCompanies() {
-    // Fetch data from the database using Prisma
-    const companies = await prisma.company.findMany();
+    
+    const { data: companies, error } = await supabase.from('company').select('*');
+
+    if (error) {
+        console.error('Error fetching companies:', error);
+        return [];
+    }
+
     return companies;
 }
 

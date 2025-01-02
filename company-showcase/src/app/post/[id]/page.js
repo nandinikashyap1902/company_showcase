@@ -1,12 +1,15 @@
-import prisma from "../../../../prisma/prisma";
+import { supabase } from '../../../../lib/supabaseClient';
 
 async function getCompany(id) {
-    const company = await prisma.company.findUnique({
-        where: { id: parseInt(id) },
-        include: { directors: true }, // Fetch related directors
-    });
+    // Fetch the company with its related directors from Supabase
+    const { data: company, error } = await supabase
+        .from('company')
+        .select('*, directors(*)') // Include related directors
+        .eq('id', id)
+        .single(); // Fetch a single company by ID
 
-    if (!company) {
+    if (error) {
+        console.error('Error fetching company:', error);
         throw new Error('Company not found');
     }
 
@@ -14,10 +17,9 @@ async function getCompany(id) {
 }
 
 export default async function CompanyPage({ params }) {
-    const { id } = await params ; // Extract the dynamic `id` from the URL
+    const { id } = await params; // Extract the dynamic `id` from the URL
     const company = await getCompany(id);
 
-    
     return (
         <div>
             <h1>{company.name}</h1>
