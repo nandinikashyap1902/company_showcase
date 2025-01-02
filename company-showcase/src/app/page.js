@@ -1,6 +1,5 @@
 import prisma from '../../prisma/prisma';
 import Link from 'next/link';
-
 async function getCompanies() {
     // Fetch data from the database using Prisma
     const companies = await prisma.company.findMany();
