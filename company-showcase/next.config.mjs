@@ -3,9 +3,7 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true, // Disables ESLint checks during builds
     },
-    experimental: {
-        appDir: true,
-      },
+   
 };
 
 
